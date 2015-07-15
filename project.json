@@ -1,0 +1,15 @@
+{
+    "debugMode"     : 1,
+    "frameRate"     : 60,
+    "id"            : "gameCanvas",
+    "renderMode"    : 1,
+    "jsList"        : [
+    	"src/res.js",
+
+    	"src/managers/SceneManager.js",
+    	    	
+    	"src/scenes/SceneBase.js",
+    	"src/scenes/SceneTitle.js",
+    	"src/scenes/SceneMap.js"
+    ]
+}
