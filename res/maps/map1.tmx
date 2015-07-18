@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileA" tilewidth="32" tileheight="32">
+  <image source="kenney_16x16.png" width="2048" height="2048"/>
+  <tile id="2472">
+   <properties>
+    <property name="passable" value="0"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="layer1" width="100" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztk0EOQEAMRStsJunCOcTJcDGcwg1cw8IdsOokMgt0TMV/yds2v/0p0XOmTGEIAAAAAH7H4ohWlzrFmYaJ2t2OUycBByOLluidqIXGT1RerjrCfw0sWiJGH18gdh/+XTW9Ol8j49s73t0HfdjpI0UW9BHOMufQkmUBIQy5AfrLDh4=
+  </data>
+ </layer>
+ <layer name="layer2" width="100" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzt00EKgCAQheFpqavOVN3Oy3mkggjCTTrOoMH/wds+RpwRAQAAGCPFO7PZgsh+5QijJ8HMnv213GGLvvdcXveVfWqhtC5+3eU+1earo7XfYkbrN/YE/8A/AgA0TpjdNGk=
+  </data>
+ </layer>
+ <layer name="layer3" width="100" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6DbP5bFjOGmkIAE4I+u7QEAAAAAVw0/MQDF
+  </data>
+ </layer>
+ <objectgroup name="events" width="0" height="0">
+  <object x="2720" y="224" width="32" height="32">
+   <properties>
+    <property name="EC" value=""/>
+   </properties>
+  </object>
+  <object name="e1" x="0" y="0" width="32" height="32"/>
+  <object name="e2" x="64" y="0" width="32" height="32"/>
+  <object name="te1" x="128" y="0" width="32" height="32"/>
+ </objectgroup>
+</map>
