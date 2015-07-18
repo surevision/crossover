@@ -22,4 +22,5 @@ pushPreloads(preloads, [res.HelloWorld]);
 pushPreloads(preloads, res.tilesets);
 pushPreloads(preloads, res.tilemaps);
 
+console.log("res :");
 console.log(preloads);

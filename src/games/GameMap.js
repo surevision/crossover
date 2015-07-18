@@ -20,13 +20,13 @@ var GameMap = cc.Class.extend({
 		console.log("loaded map %d", mapId);
 		console.log("width %d, height %d", this.width(), this.height());
 		// 读取事件层信息
-		this.eventLayer = this.tmx.getObjectGroup("events");
+		this.eventLayer = this.tmx.getObjectGroup(Map.LAYER_NAME_EVENT);
 		this.events = this.eventLayer.getObjects();
 		// 读取tilemap层信息
 		this.tileMapLayers = [
-								this.tmx.getLayer("layer1"), 
-								this.tmx.getLayer("layer2"), 
-								this.tmx.getLayer("layer3")
+								this.tmx.getLayer(Map.LAYER_NAME_1), 
+								this.tmx.getLayer(Map.LAYER_NAME_2), 
+								this.tmx.getLayer(Map.LAYER_NAME_3)
 							];
 	},
 	// 销毁
@@ -65,7 +65,7 @@ var GameMap = cc.Class.extend({
 			var gid = layer.getTileGIDAt(cc.p(x, y));
 			if (gid != 0) {
 				var prop = this.tmx.getPropertiesForGID(gid);
-				if (prop && prop.passable == "0") {
+				if (prop && prop[Map.TILE_PROP_OBSTACLE] == eMap.Obstacle.unpassable) {
 					return false;
 				}
 			}

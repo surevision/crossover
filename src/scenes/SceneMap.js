@@ -7,6 +7,10 @@ var SceneMap = SceneBase.extend({
         this._super();
         var map = new GameMap();
         map.setup(1);
+        this.addChild(map.tmx);
         map.isPassable(0, 11);
+    },
+    updateLogic : function(dt) {
+    	this._super();
     }
 });

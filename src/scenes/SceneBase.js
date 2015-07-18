@@ -14,12 +14,13 @@ var SceneBase = cc.Scene.extend({
         this.terminate();
     },
     update : function(dt) {
+        this.updateLogic(dt);
+    },
+    updateLogic : function(dt) {
 
     },
     start : function() {
-        cc.log("SceneBase start");
     },
     terminate : function() {
-        cc.log("SceneBase terminate");
     }
 });
