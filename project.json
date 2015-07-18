@@ -6,6 +6,8 @@
     "jsList"        : [
     	"src/res.js",
 
+    	"src/commons/Const.js",
+
     	"src/managers/SceneManager.js",
 
     	"src/games/GameMap.js",

@@ -1,10 +1,6 @@
 // GameMap
 
 var GameMap = cc.Class.extend({
-
-	TILE_WIDTH : 32,
-	TILE_HEIGHT : 32,
-
 	ctor : function() {
 		this.mapId = 0;		// 地图id
 		this.tmx = null;	//　tmx文件数据(CCTMXTiledMap)
@@ -69,7 +65,7 @@ var GameMap = cc.Class.extend({
 			var gid = layer.getTileGIDAt(cc.p(x, y));
 			if (gid != 0) {
 				var prop = this.tmx.getPropertiesForGID(gid);
-				if (prop && prop["passable"] == "0") {
+				if (prop && prop.passable == "0") {
 					return false;
 				}
 			}
