@@ -10,6 +10,7 @@
 
     	"src/managers/SceneManager.js",
 
+    	"src/games/GameTemp.js",
     	"src/games/GameMap.js",
     	    	
     	"src/scenes/SceneBase.js",

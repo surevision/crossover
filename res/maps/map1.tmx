@@ -10,7 +10,7 @@
  </tileset>
  <layer name="layer1" width="100" height="15">
   <data encoding="base64" compression="zlib">
-   eJztlLEJgDAQRU+wCaRwDnEydTF1CsexcAftIkSLkIsm+B689vjh504knrVSGAIAAAC/YzMiu/k6hU9vRYbT0cbNmYwvhLNYZ06k6FVjJ9pLri7Bn5utMyf+umep+7i7YxqGztfI+PYbS8lCH3lloY/nLE2NiFiGB7rCzH0=
+   eJztlDEKgDAMRTO4FDJ4DvFk6sXUkzl4B90qVIdialt8D94afvlNRAAAAADysDmR3eVOETKoyHg66bs5swuFeFb1lkSKXi12orvk6hP8uUW9JfHXPUvdx90dszB2vkXGr99YSxb6KCsLfTxnaRtExDo8ACpsy7s=
   </data>
  </layer>
  <layer name="layer2" width="100" height="15">
@@ -20,7 +20,12 @@
  </layer>
  <layer name="layer3" width="100" height="15">
   <data encoding="base64" compression="zlib">
-   eJztzgENAAAIA6DbP5bFjOGmkIAE4I+u7QEAAAAAVw0/MQDF
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAIDXABdwAAE=
+  </data>
+ </layer>
+ <layer name="layer4" width="100" height="15" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAIDXABdwAAE=
   </data>
  </layer>
  <objectgroup name="events" width="0" height="0">

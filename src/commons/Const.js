@@ -9,6 +9,7 @@ var Map = {
 	LAYER_NAME_1 : "layer1",		// 图层名 层1
 	LAYER_NAME_2 : "layer2",		// 图层名 层2
 	LAYER_NAME_3 : "layer3",		// 图层名 层3
+	LAYER_NAME_4 : "layer4",		// 图层名 层4 特殊
 
 	TILE_PROP_OBSTACLE : "obstacle"	// 图块属性 是否为障碍物
 
