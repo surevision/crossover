@@ -10,9 +10,19 @@
 
     	"src/managers/SceneManager.js",
 
-    	"src/games/GameTemp.js",
+
+        "src/games/GameCharacterStateMachine.js",
+        "src/games/states/StateBase.js",
+        "src/games/states/StateIdle.js",
+        "src/games/states/StateMove.js",
+        "src/games/states/StateJump.js",        
+        "src/games/states/StateFall.js",
+
+        "src/games/GameTemp.js",
+    	"src/games/GameCharacter.js",
     	"src/games/GameMap.js",
-    	    	
+
+    	
     	"src/scenes/SceneBase.js",
     	"src/scenes/SceneTitle.js",
     	"src/scenes/SceneMap.js"

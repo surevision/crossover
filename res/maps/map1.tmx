@@ -20,12 +20,7 @@
  </layer>
  <layer name="layer3" width="100" height="15">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20IX6AAAAAAAIDXABdwAAE=
-  </data>
- </layer>
- <layer name="layer4" width="100" height="15" visible="0">
-  <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20IX6AAAAAAAIDXABdwAAE=
+   eJztziEBAAAIA7AL6F+ZDhgQW4IlAAAAf1RfDwAAYGcAeJcACg==
   </data>
  </layer>
  <objectgroup name="events" width="0" height="0">

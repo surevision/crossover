@@ -22,3 +22,26 @@ var eMap = {
 		unpassable : "1"	// 是不可通行的障碍物
 	}
 }
+
+// 四方向
+var Dirs = {
+	DOWN : 2,
+	LEFT : 4,
+	RIGHT : 6,
+	UP : 8
+}
+
+// 跳跃加速度
+var SPEED_JUMP = 10;
+// 行走速度
+var SPEED_MOVE = 8;
+// 重力
+var GRAVITY = 0.9;
+
+// 人物状态
+var State = {
+	IDLE : "IDLE",
+	MOVE : "MOVE",
+	JUMP : "JUMP",
+	FALL : "FALL"
+}

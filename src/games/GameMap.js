@@ -16,6 +16,7 @@ var GameMap = cc.Class.extend({
 	// 读取地图信息
 	setup : function(mapId) {
 		this.mapId = mapId;
+		console.log("mapname : %s", this.getMapFileName(mapId));
 		this.tmx = new cc.TMXTiledMap(this.getMapFileName(mapId));	// 需要add到父节点以防止被释放
 		console.log("loaded map %d", mapId);
 		console.log("width %d, height %d", this.width(), this.height());
