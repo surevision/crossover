@@ -11,7 +11,7 @@ var GameCharacter = cc.Class.extend({
 	},
 	isInState : function(stateId) {
 		return this.state && this.state.id == stateId;
-	}
+	},
 	// 跳跃，与掉落互斥
 	jump : function() {
 		GameCharacterStateMachine.changeState(this, new StateJump());
@@ -28,6 +28,15 @@ var GameCharacter = cc.Class.extend({
 	},
 	// 刷新
 	update : function() {
-		switch case (Input.dir4)
+		switch (Input.dir2()) {
+			case 4 :
+				console.log("LEFT");
+			break;
+			case 6 :
+				console.log("RIGHT");
+			break;
+			default :
+			break;
+		}
 	}
 });

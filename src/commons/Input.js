@@ -1,10 +1,11 @@
 
-var KeyEvent = cc.Class.extends({
-	ctor : function(code, keyEvent) {
+var KeyEvent = cc.Class.extend({
+	// code : Keys码, keyEventType : KeyEventTypes码(按下、松开)
+	ctor : function(code, keyEventType) {
 		this.code = code;
-		this.keyEvent = keyEvent;
+		this.keyEventType = keyEventType;
 	}
-})
+});
 var Input = {
 	// 按下的key的状态(code=>按下的帧数)
 	status : {},
@@ -13,34 +14,39 @@ var Input = {
 	// 更新按键状态
 	update : function(dt) {
 		// 更新已按下的key的持续时间
-		var currKeys = [];
+		var currKeys = {
+			codes : [],
+			num : []
+		};
 		var code = null;
 		for (code in Input.status) {
-			Input.status[code] += 1;
-			currKeys.push(code);
+			if (Input.status[code]) {
+				Input.status[code] += 1;
+				currKeys.codes.push(code);
+				currKeys.num.push(Input.status[code]);
+			}
 		}
-		if (currKeys.length > 0) {
-			console.log("currKeys %s", currKeys.join(","));
-		}		
 		var event = null;
 		while (event = Input.events.shift()) {
-			if (event.keyEvent == KeyEvent.DOWN) {
-				// 新键按下
-				var code = event.keyEvent.code;
-				Input.status[code] = 0;
-			} else if (event.keyEvent == KeyEvent.UP) {
+			if (event.keyEventType == KeyEventTypes.DOWN) {
+				console.log("key down %s", event.code);
+				var code = event.code;
+				Input.status[code] = Input.status[code] || 1;
+			} else if (event.keyEventType == KeyEventTypes.UP) {
+				console.log("key up %s", event.code);
+				var code = event.code;
 				Input.status[code] = null;
 			}
 		}
 	},
 	// 判断是否按下
 	isPress : function(code) {
-		return Input.status[code];
+		return !!Input.status[code];
 	},
 	// 判断短按,刚刚按下的状态
 	isTrigger : function(code) {
-		return Input.status[code] && Input.status[code] == 0;
-	}
+		return !!(Input.status[code] && (Input.status[code] == 1));
+	},
 	// 2方向移动状态
 	dir2 : function() {
 		if (Input.status[Keys.LEFT]) {

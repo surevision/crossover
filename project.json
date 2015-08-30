@@ -1,30 +1,32 @@
 {
-    "debugMode"     : 1,
-    "frameRate"     : 60,
-    "id"            : "gameCanvas",
-    "renderMode"    : 1,
-    "jsList"        : [
-    	"src/res.js",
+	"debugMode"	: 1,
+	"frameRate"	: 60,
+	"id"		: "gameCanvas",
+	"renderMode"	: 1,
+	"jsList"		: [
+		"src/res.js",
 
-    	"src/commons/Const.js",
+		"src/commons/Const.js",
+		"src/commons/Input.js",
+		"src/commons/inputs/KeyBoardInput.js",
 
-    	"src/managers/SceneManager.js",
+		"src/managers/SceneManager.js",
+
+		"src/games/GameTemp.js",
+		"src/games/GameCharacterStateMachine.js",
+			"src/games/states/StateBase.js",
+			"src/games/states/StateIdle.js",
+			"src/games/states/StateMove.js",
+			"src/games/states/StateJump.js",        
+			"src/games/states/StateFall.js",
+		"src/games/GameCharacter.js",
+		"src/games/GameMap.js",
+		
+		"src/scenes/SceneBase.js",
+		"src/scenes/SceneTitle.js",
+		"src/scenes/SceneMap.js",
 
 
-        "src/games/GameCharacterStateMachine.js",
-        "src/games/states/StateBase.js",
-        "src/games/states/StateIdle.js",
-        "src/games/states/StateMove.js",
-        "src/games/states/StateJump.js",        
-        "src/games/states/StateFall.js",
-
-        "src/games/GameTemp.js",
-    	"src/games/GameCharacter.js",
-    	"src/games/GameMap.js",
-
-    	
-    	"src/scenes/SceneBase.js",
-    	"src/scenes/SceneTitle.js",
-    	"src/scenes/SceneMap.js"
-    ]
+		"src/main.js"
+	]
 }

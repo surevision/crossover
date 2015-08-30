@@ -4953,6 +4953,7 @@ cc.eventManager = {
             if (node === null)
                 cc.log(cc._LogInfos.eventManager__forceAddEventListener);
             this._associateNodeAndEventListener(node, listener);
+            console.log(node);
             if (node.isRunning())
                 this.resumeTarget(node);
         } else

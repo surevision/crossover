@@ -38,8 +38,10 @@ var State = {
 	FALL : "FALL"
 }
 
+var INPUT_LAYER_TAG = 9998;
+
 // 按键输入状态
-var KeyEvents = {
+var KeyEventTypes = {
 	DOWN : "DOWN",
 	UP : "UP"
 }
@@ -61,6 +63,4 @@ var Keys = {
 	B : "B",
 	// 加速
 	A : "A",
-	// SHIFT
-	SHIFT : "SHIFT"
 }

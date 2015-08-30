@@ -14,6 +14,7 @@ var SceneBase = cc.Scene.extend({
 		this.terminate();
 	},
 	update : function(dt) {
+		Input.update(dt);
 		this.updateLogic(dt);
 	},
 	updateLogic : function(dt) {
