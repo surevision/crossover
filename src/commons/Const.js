@@ -23,14 +23,6 @@ var eMap = {
 	}
 }
 
-// 四方向
-var Dirs = {
-	DOWN : 2,
-	LEFT : 4,
-	RIGHT : 6,
-	UP : 8
-}
-
 // 跳跃加速度
 var SPEED_JUMP = 10;
 // 行走速度
@@ -44,4 +36,31 @@ var State = {
 	MOVE : "MOVE",
 	JUMP : "JUMP",
 	FALL : "FALL"
+}
+
+// 按键输入状态
+var KeyEvents = {
+	DOWN : "DOWN",
+	UP : "UP"
+}
+
+// 按键码
+// 按键监听者映射对应的按键(键盘)码到这里
+var Keys = {
+	// 下
+	DOWN : "DOWN",
+	// 左
+	LEFT : "LEFT",
+	// 右
+	RIGHT : "RIGHT",
+	// 上
+	UP : "UP",
+	// 确定
+	C : "C",
+	// 取消
+	B : "B",
+	// 加速
+	A : "A",
+	// SHIFT
+	SHIFT : "SHIFT"
 }
