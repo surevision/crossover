@@ -25,5 +25,9 @@ var GameCharacter = cc.Class.extend({
 		// 速度随方向同时剧变
 		GameCharacterStateMachine.changeState(this, new StateMove());
 		this.dir = dir;
+	},
+	// 刷新
+	update : function() {
+		switch case (Input.dir4)
 	}
 });
