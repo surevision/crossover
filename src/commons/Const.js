@@ -26,7 +26,7 @@ var eMap = {
 // 跳跃加速度
 var SPEED_JUMP = 10;
 // 行走速度
-var SPEED_MOVE = 8;
+var SPEED_MOVE = 6;
 // 重力
 var GRAVITY = 0.9;
 
@@ -49,6 +49,7 @@ var KeyEventTypes = {
 // 按键码
 // 按键监听者映射对应的按键(键盘)码到这里
 var Keys = {
+	DEBUG : "DEBUG",
 	// 下
 	DOWN : "DOWN",
 	// 左

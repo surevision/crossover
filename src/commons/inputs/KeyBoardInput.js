@@ -9,6 +9,7 @@ var KeyBoardInput = {
 		27 : Keys.B,			// Esc
 		88 : Keys.B,			// X
 		16 : Keys.A,			// Shift
+		113 : Keys.DEBUG	// F2
 	},
 	bind : function(layer) {
 		if (cc.sys.capabilities.hasOwnProperty('keyboard')) {

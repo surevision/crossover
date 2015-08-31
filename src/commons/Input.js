@@ -34,6 +34,10 @@ var Input = {
 		var event = null;
 		while (event = Input.events.shift()) {
 			if (event.keyEventType == KeyEventTypes.DOWN) {
+				if (event.code == Keys.DEBUG) {
+					// 切换调试信息
+					cc.Director.sharedDirector.setDisplayStats(!cc.Director.sharedDirector.isDisplayStats());
+				}
 				//console.log("key down %s", event.code);
 				var code = event.code;
 				Input.status[code] = Input.status[code] || 1;
