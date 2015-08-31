@@ -11,6 +11,11 @@ var Input = {
 	status : {},
 	// 发生事件的key(down，up)，被事件监听者修改
 	events : [],
+	// 清空状态
+	clear : function() {
+		Input.status = {};
+		Input.events = [];
+	},
 	// 更新按键状态
 	update : function(dt) {
 		// 更新已按下的key的持续时间

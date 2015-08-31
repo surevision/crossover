@@ -15,14 +15,14 @@ var KeyBoardInput = {
 			cc.eventManager.addListener({
 				event : cc.EventListener.KEYBOARD,
 				onKeyPressed : function(key, event) {
-					console.log("onKeyPressed %d", key);
+					//console.log("onKeyPressed %d", key);
 					if (KeyBoardInput.KeyBoardMap[key]) {
 						var e = new KeyEvent(KeyBoardInput.KeyBoardMap[key], KeyEventTypes.DOWN);
 						Input.events.push(e);
 					}
 				},
 				onKeyReleased : function(key, event) {
-					console.log("onKeyReleased %d", key);
+					//console.log("onKeyReleased %d", key);
 					if (KeyBoardInput.KeyBoardMap[key]) {
 						var e = new KeyEvent(KeyBoardInput.KeyBoardMap[key], KeyEventTypes.UP);
 						Input.events.push(e);
