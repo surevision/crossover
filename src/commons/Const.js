@@ -13,7 +13,7 @@ var Map = {
 
 	TILE_PROP_OBSTACLE : "obstacle"	// 图块属性 是否为障碍物
 
-}
+};
 
 // TileMap枚举
 var eMap = {
@@ -21,7 +21,7 @@ var eMap = {
 	Obstacle : {
 		unpassable : "1"	// 是不可通行的障碍物
 	}
-}
+};
 
 // 跳跃加速度
 var SPEED_JUMP = 10;
@@ -31,12 +31,12 @@ var SPEED_MOVE = 8;
 var GRAVITY = 0.9;
 
 // 人物状态
-var State = {
+var CharacterState = {
 	IDLE : "IDLE",
 	MOVE : "MOVE",
 	JUMP : "JUMP",
 	FALL : "FALL"
-}
+};
 
 var INPUT_LAYER_TAG = 9998;
 
@@ -44,7 +44,7 @@ var INPUT_LAYER_TAG = 9998;
 var KeyEventTypes = {
 	DOWN : "DOWN",
 	UP : "UP"
-}
+};
 
 // 按键码
 // 按键监听者映射对应的按键(键盘)码到这里
@@ -63,4 +63,21 @@ var Keys = {
 	B : "B",
 	// 加速
 	A : "A",
-}
+};
+
+// Armature动画路径
+var ArmaturePathPre = "res/armatures/";
+
+// 人物动画动作
+var ArmatureCharacterMovements = {
+	IDLE : "idle",
+	MOVE : "walk",
+	JUMP : "jump"
+};
+var ACM = ArmatureCharacterMovements;
+
+// 特效动画动作
+var ArmatureEffectMovements = {
+	EFFECT : "effect"
+};
+var AEM = ArmatureEffectMovements;

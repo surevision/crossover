@@ -21,6 +21,9 @@
 			"src/games/states/StateFall.js",
 		"src/games/GameCharacter.js",
 		"src/games/GameMap.js",
+
+		"src/armatures/ArmatureBase.js",
+		"src/armatures/ArmatureCharacter.js",
 		
 		"src/scenes/SceneBase.js",
 		"src/scenes/SceneTitle.js",

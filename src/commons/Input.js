@@ -34,11 +34,11 @@ var Input = {
 		var event = null;
 		while (event = Input.events.shift()) {
 			if (event.keyEventType == KeyEventTypes.DOWN) {
-				console.log("key down %s", event.code);
+				//console.log("key down %s", event.code);
 				var code = event.code;
 				Input.status[code] = Input.status[code] || 1;
 			} else if (event.keyEventType == KeyEventTypes.UP) {
-				console.log("key up %s", event.code);
+				//console.log("key up %s", event.code);
 				var code = event.code;
 				Input.status[code] = null;
 			}
