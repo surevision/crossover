@@ -13,5 +13,8 @@ var ArmatureBase = cc.Class.extend({
 	update : function() {	},
 	dispose : function() {
 		this.armature.removeFromParent();
+	},
+	play : function(movement) {
+		this.armature.getAnimation().play(movement);
 	}
 });

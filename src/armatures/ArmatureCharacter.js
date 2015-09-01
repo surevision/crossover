@@ -30,8 +30,5 @@ var ArmatureCharacter = ArmatureBase.extend({
 				this.play(ACM.JUMP);
 			}
 		}
-	},
-	play : function(movement) {
-		this.armature.getAnimation().play(movement);
 	}
 });
