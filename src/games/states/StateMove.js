@@ -1,3 +1,4 @@
+// 移动
 var StateMove = StateBase.extend({
 	ctor : function() {
 		this._super(CharacterState.MOVE);

@@ -1,10 +1,19 @@
-var GameCharacterStateMachine = {
-	changeState : function(character, state) {
+var GameCharacterStateMachine = cc.Class.extend({
+	ctor : function(character) {
+		this.character = character;
+		this.currState = null;
+	},
+	changeState : function(state) {
 		// state : {id = id, func = func}
-		if (character.state) {
-			character.state.onExit(character);
+		if (this.currState) {
+			this.currState.onExit(this.character);
 		}
-		character.state = state;
-		character.state.onEnter(character);
+		this.currState = state;
+		state.onEnter(this.character);
+	},
+	update : function() {
+		if (this.currState) {
+			this.currState.onExecute(this.character);
+		}
 	}
-}
+});

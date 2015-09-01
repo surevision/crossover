@@ -10,6 +10,6 @@ var SceneManager = {
 		KeyBoardInput.bind(inputLayer);
 		scene.addChild(inputLayer);
 		//记录当前场景
-		runningScene = scene;
+		SceneManager.runningScene = scene;
 	}
 }

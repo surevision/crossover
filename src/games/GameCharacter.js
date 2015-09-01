@@ -2,37 +2,46 @@
 var GameCharacter = cc.Class.extend({
 	ctor : function(characterArmatureName) {
 		this.characterArmatureName = characterArmatureName || "";	// 动画名
-		this.x = 0;														// 地图 X 坐标，屏幕坐标另算
-		this.y = 0;														// 地图 Y 坐标，屏幕坐标另算
+		this.x = 0;														// 地图 X 坐标
+		this.y = 0;														// 地图 Y 坐标
+		this.real_x = 0;													// 地图实际X坐标
+		this.real_y = 0;													// 地图实际Y坐标
+		this.screen_x = 0;												// 屏幕X坐标
+		this.screen_y = 0;												// 屏幕Y坐标
 		this.speed_x = 0;												// 水平速度，松开按键时立刻归零
 		this.speed_y = 0;												// 垂直速度，逐帧减少至0
 		this.dir = true													// 水平方向(true 右 false 左)
-		this.state = null;													// 状态
-		GameCharacterStateMachine.changeState(this, new StateIdle());
+		this.stateMachineX = new GameCharacterStateMachine(this);	// 水平方向状态机
+		this.stateMachineY = new GameCharacterStateMachine(this);	// 垂直方向状态机
 	},
 	isInState : function(stateId) {
-		return this.state && this.state.id == stateId;
+		var stateX = this.stateMachineX.currState;
+		var stateY = this.stateMachineY.currState;
+		return (stateX && stateX.id == stateId) ||
+				(stateY && stateY.id == stateId);
 	},
-	// 跳跃，与掉落互斥
-	jump : function() {
-		GameCharacterStateMachine.changeState(this, new StateJump());
+	// 跳跃
+	jump : function(withoutSpeed) {
+		this.stateMachineY.changeState(new StateJump(withoutSpeed));
 	},
-	// 掉落， 与跳跃互斥
+	// 落地，纵向静止
 	fall : function() {
-		GameCharacterStateMachine.changeState(this, new StateFall());
+		this.stateMachineY.changeState(new StateFall());
 	},
 	// 行走
 	move : function(dir) {
 		// 速度随方向同时剧变
-		GameCharacterStateMachine.changeState(this, new StateMove());
+		this.stateMachineX.changeState(new StateMove());
 		this.dir = !!dir;
 	},
 	// 待机，横向静止
 	idle : function() {
-		GameCharacterStateMachine.changeState(this, new StateIdle());
+		this.stateMachineX.changeState(new StateIdle());
 	},
 	// 刷新
 	update : function() {
+		this.stateMachineX.update();
+		this.stateMachineY.update();
 		switch (Input.dir2()) {
 			case 4 :
 				console.log("LEFT");
@@ -46,7 +55,57 @@ var GameCharacter = cc.Class.extend({
 				this.idle();
 			break;
 		}
-		this.y += this.speed_y;
-		this.x += this.speed_x * (this.dir ? 1 : -1);
+		if (Input.isTrigger(Keys.UP) && (!this.isInState(CharacterState.JUMP))) {
+			this.jump();
+		}
+		// 检查落地、撞墙等状态
+		this.checkState();
+		// 设置位置
+		this.real_x += this.speed_x * (this.dir ? 1 : -1);
+		this.real_y += this.speed_y;
+		// 调整设置屏幕位置
+		this.adjustPos();
+	},
+	checkState : function() {
+		if (this.isInState(CharacterState.MOVE)) {
+			// 撞墙
+			var _x = this.x + 1 * (this.dir ? 1 : -1);
+			var _y = SceneManager.runningScene.map.height() - this.y;
+			if (!SceneManager.runningScene.map.isPassable(_x, _y)) {
+				console.log("horizen : %d, %d", _x, _y);
+				this.idle();
+			}
+		}
+		if (this.speed_y <= 0) {			
+			// 落地
+			var _x = this.x;
+			var _y = SceneManager.runningScene.map.height() - (this.y - 1);
+			if (SceneManager.runningScene.map.isPassable(_x, _y)) {
+				console.log("vertical : %d, %d", _x, _y);
+				this.jump(true);
+			}
+		}
+		if (this.isInState(CharacterState.JUMP)) {
+			// 落地
+			var _x = this.x;
+			var _y = SceneManager.runningScene.map.height() - (this.y - 1);
+			if (this.speed_y <= 0 && (!SceneManager.runningScene.map.isPassable(_x, _y))) {
+				console.log("vertical : %d, %d", _x, _y);
+				this.fall();
+			}
+		}
+	},
+	adjustPos : function() {
+		this.x = parseInt(this.real_x / 32);
+		this.y = parseInt(this.real_y / 32);
+
+		// todo:暂时相同
+		this.screen_x = this.real_x;
+		this.screen_y = this.real_y;
+
+		if (this.y < -2) {
+			// gameover
+			SceneManager.call(new SceneTitle());
+		}
 	}
 });

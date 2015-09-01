@@ -1,9 +1,10 @@
+// 落地
 var StateFall = StateBase.extend({
 	ctor : function() {
 		this._super(CharacterState.FALL);
 	},
-	onExecute : function(character) {
+	onEnter : function(character) {
 		this._super(character);
-		character.speed_y -= GRAVITY;
+		character.speed_y = 0;
 	}
 })
