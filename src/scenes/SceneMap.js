@@ -11,10 +11,10 @@ var SceneMap = SceneBase.extend({
 		this.map = map;
 		map.setup(1);
 		this.addChild(map.tmx);
-		console.log("Test passable : " + map.isPassable(2, 6));
+		console.log("Test passable : " + map.isPassable(12, 8));
 
 		var armature = new ArmatureCharacter(new GameCharacter("TuanZi"), this);
-		armature.character.real_y = 6 * 32;
+		armature.character.real_y = 5 * 32;
 		this.armatures.push(armature);
 	},
 	updateLogic : function(dt) {

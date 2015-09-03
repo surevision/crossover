@@ -24,7 +24,7 @@ var eMap = {
 };
 
 // 跳跃加速度
-var SPEED_JUMP = 10;
+var SPEED_JUMP = 12;
 // 行走速度
 var SPEED_MOVE = 6;
 // 重力

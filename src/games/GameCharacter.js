@@ -60,45 +60,53 @@ var GameCharacter = cc.Class.extend({
 		}
 		// 检查落地、撞墙等状态
 		this.checkState();
-		// 设置位置
-		this.real_x += this.speed_x * (this.dir ? 1 : -1);
-		this.real_y += this.speed_y;
+		if (this.isInState(CharacterState.JUMP) || this.isInState(CharacterState.MOVE)) {
+			// 设置位置
+			this.real_x += this.speed_x * (this.dir ? 1 : -1);
+			this.real_y += this.speed_y;			
+		}
 		// 调整设置屏幕位置
 		this.adjustPos();
 	},
 	checkState : function() {
-		if (this.isInState(CharacterState.MOVE)) {
-			// 撞墙
-			var _x = this.x + 1 * (this.dir ? 1 : -1);
-			var _y = SceneManager.runningScene.map.height() - this.y;
-			if (!SceneManager.runningScene.map.isPassable(_x, _y)) {
-				console.log("horizen : %d, %d", _x, _y);
-				this.idle();
+		// 落地-掉落-待机		
+		var checkX = parseInt(this.real_x / 32);
+		var checkY = parseInt(this.real_y / 32);
+		if (this.isInState(CharacterState.JUMP)) {
+			// 落地
+			var _x = checkX;
+			var _y = SceneManager.runningScene.map.height() - checkY;
+			if (this.speed_y < 0 && (!SceneManager.runningScene.map.isPassable(_x, _y))) {
+				if (this.real_y > checkY * 32 - 10 && this.real_y < checkY * 32 + 10) {
+					this.fall();
+					this.real_y = checkY * 32;
+					checkY = parseInt(this.real_y / 32);					
+				}
 			}
 		}
-		if (this.speed_y <= 0) {			
-			// 落地
+		if (this.speed_y == 0) {
+			// 掉落
 			var _x = this.x;
-			var _y = SceneManager.runningScene.map.height() - (this.y - 1);
+			var _y = SceneManager.runningScene.map.height() - checkY;
 			if (SceneManager.runningScene.map.isPassable(_x, _y)) {
-				console.log("vertical : %d, %d", _x, _y);
 				this.jump(true);
 			}
 		}
-		if (this.isInState(CharacterState.JUMP)) {
-			// 落地
-			var _x = this.x;
-			var _y = SceneManager.runningScene.map.height() - (this.y - 1);
-			if (this.speed_y <= 0 && (!SceneManager.runningScene.map.isPassable(_x, _y))) {
-				console.log("vertical : %d, %d", _x, _y);
-				this.fall();
+		if (this.isInState(CharacterState.MOVE)) {
+			// 撞墙
+			var _x = this.x + 1 * (this.dir ? 1 : -1);
+			var _y = SceneManager.runningScene.map.height() - checkY - 1;
+			if (!SceneManager.runningScene.map.isPassable(_x, _y)) {
+				if (this.real_x > _x * 32 - 5 && this.real_x < _x * 32 + 5) {
+					console.log("撞墙 %d %d", _x, _y);
+					this.idle();			
+				}
 			}
 		}
 	},
 	adjustPos : function() {
 		this.x = parseInt(this.real_x / 32);
 		this.y = parseInt(this.real_y / 32);
-
 		// todo:暂时相同
 		this.screen_x = this.real_x;
 		this.screen_y = this.real_y;

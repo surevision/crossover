@@ -20,27 +20,21 @@ var ArmatureCharacter = ArmatureBase.extend({
 	checkState : function() {
 		// 跳跃 => 移动 => 静止
 		var stateId = null;
-		if (this.character.stateMachineY.currState) {
-			if (this.character.stateMachineY.currState.id == CharacterState.JUMP) {
-				stateId = CharacterState.JUMP;
-			}
-		}
-		if (this.character.stateMachineX.currState) {
-			if (!stateId && this.character.stateMachineX.currState.id == CharacterState.MOVE) {
-				stateId = CharacterState.MOVE;
-			}
-		}
-		if (!stateId) {
+		if (this.character.isInState(CharacterState.JUMP)) {
+			stateId = CharacterState.JUMP;
+		} else if (this.character.isInState(CharacterState.MOVE)) {
+			stateId = CharacterState.MOVE;
+		} else {
 			stateId = CharacterState.IDLE;
 		}
 		if (stateId && stateId != this.lastStateId) {
 			this.lastStateId = stateId;
-			if (this.character.isInState(CharacterState.JUMP)) {
+			if (stateId == CharacterState.JUMP) {
 				this.play(ACM.JUMP);
-			} else if (this.character.isInState(CharacterState.IDLE)) {
-				this.play(ACM.IDLE);
-			} else if (this.character.isInState(CharacterState.MOVE)) {
+			} else if (stateId == CharacterState.MOVE) {
 				this.play(ACM.MOVE);
+			} else if (stateId == CharacterState.IDLE) {
+				this.play(ACM.IDLE);
 			}
 		}
 	}
