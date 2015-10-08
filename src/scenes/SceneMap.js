@@ -14,7 +14,7 @@ var SceneMap = SceneBase.extend({
 		console.log("Test passable : " + map.isPassable(12, 8));
 
 		var armature = new ArmatureCharacter(new GameCharacter("TuanZi"), this);
-		armature.character.real_y = 5 * 32;
+		armature.character.real_y = 10 * 32;
 		this.armatures.push(armature);
 	},
 	updateLogic : function(dt) {

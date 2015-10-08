@@ -96,10 +96,20 @@ var GameCharacter = cc.Class.extend({
 			// 撞墙
 			var _x = this.x + 1 * (this.dir ? 1 : -1);
 			var _y = SceneManager.runningScene.map.height() - checkY - 1;
-			if (!SceneManager.runningScene.map.isPassable(_x, _y)) {
-				if (this.real_x > _x * 32 - 5 && this.real_x < _x * 32 + 5) {
-					console.log("撞墙 %d %d", _x, _y);
-					this.idle();			
+			if (_x >= SceneManager.runningScene.map.width() || 
+				_x < 0 ||
+				!SceneManager.runningScene.map.isPassable(_x, _y)) {
+				if (this.dir) {
+					// 向右					
+					if (this.real_x >= _x * 32 - 32 + 16) {
+						console.log("撞墙 %d %d", _x, _y);
+						this.idle();
+					}
+				} else {
+					if (this.real_x <= _x * 32 + 32 + 16) {
+						console.log("撞墙 %d %d", _x, _y);
+						this.idle();
+					}
 				}
 			}
 		}
