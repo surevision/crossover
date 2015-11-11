@@ -64,6 +64,8 @@ var GameCharacter = cc.Class.extend({
 		if (Input.isTrigger(Keys.UP) && (!this.isInState(CharacterState.JUMP))) {
 			this.jump();
 		}
+		// 检查落地、撞墙等状态
+		this.checkState();
 		if (this.isInState(CharacterState.JUMP)) {
 			// 隧穿记录
 			this.last_real_y = this.real_y; // 暂时只需要记录y
@@ -145,12 +147,12 @@ var GameCharacter = cc.Class.extend({
 						this.idle();
 					}
 				} else {
-					if (this.real_x <= _x * 32 + this.render_width / 2) {
+					if (this.real_x <= (_x + 1) * 32 + this.render_width / 2) {
 						console.log("撞墙左 %d %d", _x, _y);
 						this.idle();
 					}
 				}
-				console.log("idle speed_x %d", this.speed_x);
+				console.log("idle _x, _y, real_x, speed_x %d", _x, _y, this.real_x, this.speed_x);
 			}
 		}
 	},
