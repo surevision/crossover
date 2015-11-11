@@ -4,6 +4,7 @@ var ArmatureCharacter = ArmatureBase.extend({
 		this.character = character;
  		this.lastStateId = null;
 		this.init();
+		// this.debug(true);
 	},
 	init : function() {
 		this.armature.setPosition(this.character.screen_x, this.character.screen_y);
@@ -11,6 +12,8 @@ var ArmatureCharacter = ArmatureBase.extend({
 	},
 	update : function() {
 		this._super();
+		this.character.render_width = this.armature.getBoundingBox().width
+		this.character.render_height = this.armature.getBoundingBox().height
 		this.character.update();
 		this.checkState();
 		this.armature.setPosition(this.character.screen_x, this.character.screen_y);

@@ -13,6 +13,5 @@ var StateJump = StateBase.extend({
 	onExecute : function(character) {
 		this._super(character);
 		character.speed_y -= GRAVITY;
-		console.log(character.speed_y);
 	}
 })
