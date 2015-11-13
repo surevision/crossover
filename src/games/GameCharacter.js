@@ -97,8 +97,8 @@ var GameCharacter = cc.Class.extend({
 			// 只需判定向下运动时的隧穿。
 			if (checkLY - checkY < 1) {
 				if (this.speed_y < 0 && (!SceneManager.runningScene.map.isPassable(_x, _y))) {
-					if (this.real_y > checkY * 32 - this.render_height / 2 && 
-							this.real_y < checkY * 32 + this.render_height / 2) {
+					if (this.real_y > checkY * 32 - this.render_height && 
+							this.real_y < checkY * 32 + this.render_height) {
 						this.fall();
 						checkY = parseInt(this.real_y / 32);
 						this.real_y = checkY * 32;
