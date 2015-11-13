@@ -87,16 +87,16 @@ var GameMap = cc.Class.extend({
 		if (cx < size_w / 2) {
 			x = 0;
 			character.screen_x = cx;
-		} else if (cx > this.width * 32 - size_w / 2) {
-			x = this.width * 32 - size_w;
-			character.screen_x = size_w - (this.width * 32 - cx);
+		} else if (cx > this.width() * 32 - size_w / 2) {
+			console.log("end!!!!!!!!!!");
+			x = (-this.width()) * 32 + size_w;
+			character.screen_x = size_w - (this.width() * 32 - cx);
 		} else {
 			x = -cx + size_w / 2;
 			character.screen_x = size_w / 2;
 		}
 		character.screen_y = cy;
 		y = 0;
-		console.log(x, y);
 		this.tmx.setPosition(x, y);
 	}
 });
