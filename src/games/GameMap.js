@@ -72,5 +72,30 @@ var GameMap = cc.Class.extend({
 			}
 		}
 		return true;
+	},
+	// 居中显示玩家角色
+	centerPlayer : function() {
+		var character = SceneManager.runningScene.player;
+		var cx = character.real_x;
+		var cy = character.real_y;
+		var size = SceneManager.runningScene.size;
+		var size_w = size.width;
+		var size_h = size.height;
+
+		var x, y;
+		if (cx < size_w / 2) {
+			x = 0;
+			character.screen_x = cx;
+		} else if (cx > this.width * 32 - size_w / 2) {
+			x = this.width * 32 - size_w;
+			character.screen_x = size_w - (this.width * 32 - cx);
+		} else {
+			x = -cx + size_w / 2;
+			character.screen_x = size_w / 2;
+		}
+		character.screen_y = cy;
+		y = 0;
+		console.log(x, y);
+		this.tmx.setPosition(x, y);
 	}
 });

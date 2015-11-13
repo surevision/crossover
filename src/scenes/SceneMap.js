@@ -3,7 +3,7 @@ var SceneMap = SceneBase.extend({
 		this._super();
 		this.armatures = [];
 		this.map = null;
-
+		this.player = null;
 	},
 	start : function() {      
 		this._super();
@@ -12,12 +12,14 @@ var SceneMap = SceneBase.extend({
 		map.setup(1);
 		this.addChild(map.tmx);
 
-		var armature = new ArmatureCharacter(new GameCharacter("TuanZi"), this);
-		armature.character.real_y = 5 * 32;
+		this.player = new GameCharacter("TuanZi");
+		var armature = new ArmatureCharacter(this.player, this);
+		armature.character.real_y = 10 * 32;
 		this.armatures.push(armature);
 	},
 	updateLogic : function(dt) {
 		this._super();
+		this.map.centerPlayer();
 		for (var i = 0; i < this.armatures.length; i += 1) {
 			this.armatures[i].update();
 		}

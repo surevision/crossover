@@ -2,6 +2,7 @@
 var SceneBase = cc.Scene.extend({
 	ctor : function() {
 		this._super();
+		this.size = cc.director.getWinSize();
 	},
 	onEnter:function () {
 		this._super();

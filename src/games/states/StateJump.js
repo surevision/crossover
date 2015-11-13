@@ -14,4 +14,4 @@ var StateJump = StateBase.extend({
 		this._super(character);
 		character.speed_y -= GRAVITY;
 	}
-})
+});

@@ -160,9 +160,9 @@ var GameCharacter = cc.Class.extend({
 		this.x = parseInt(this.real_x / 32);
 		this.y = parseInt(this.real_y / 32);
 		// todo:暂时相同
-		this.screen_x = this.real_x;
-		this.screen_y = this.real_y;
-
+		// this.screen_x = this.real_x;
+		// this.screen_y = this.real_y;
+	
 		if (this.y <= 0) {
 			// gameover
 			SceneManager.call(new SceneTitle());
