@@ -65,6 +65,7 @@ var GameMap = cc.Class.extend({
 			var layer = this.tileMapLayers[i];
 			var gid = layer.getTileGIDAt(cc.p(x, y));
 			if (gid != 0) {
+				//console.log("passage checking gid %d", gid);
 				var prop = this.tmx.getPropertiesForGID(gid);
 				if (prop && prop[Map.TILE_PROP_OBSTACLE] == eMap.Obstacle.unpassable) {
 					return false;

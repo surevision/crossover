@@ -114,8 +114,8 @@ var GameCharacter = cc.Class.extend({
 					_y = SceneManager.runningScene.map.height() - checkY;
 					console.log("隧穿递推 _y: %d", _y);
 					if (this.speed_y < 0 && (!SceneManager.runningScene.map.isPassable(_x, _y))) {
-						if (this.real_y > checkY * 32 - this.render_height / 2 && 
-								this.real_y < checkY * 32 + this.render_height / 2) {
+						if (this.real_y > checkY * 32 - this.render_height && 
+								this.real_y < checkY * 32 + this.render_height) {
 							this.fall();
 							this.real_y = checkY * 32;
 							console.log("落地隧穿: checkY %d, _y %d", checkY, _y);
