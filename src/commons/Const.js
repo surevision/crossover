@@ -23,6 +23,9 @@ var eMap = {
 	}
 };
 
+// 角色默认层级
+var DEFAULT_CHARACTER_LAYER = 1;
+
 // 跳跃加速度
 var SPEED_JUMP = 12;
 // 行走速度

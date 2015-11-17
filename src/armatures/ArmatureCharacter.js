@@ -3,11 +3,13 @@ var ArmatureCharacter = ArmatureBase.extend({
 		this._super(character.characterArmatureName, node);
 		this.character = character;
  		this.lastStateId = null;
-		this.init();
+ 		this.tmxMap = node;
+		this.init(this.tmxMap);
 		// this.debug(true);
 	},
-	init : function() {
+	init : function(tmxMap) {
 		this.armature.setPosition(this.character.screen_x, this.character.screen_y);
+		this.tmxMap.reorderChild(this.armature, DEFAULT_CHARACTER_LAYER);
 		this.checkState();
 	},
 	update : function() {
