@@ -90,10 +90,10 @@ var GameMap = cc.Class.extend({
 		} else if (cx > this.width() * 32 - size_w / 2) {
 			console.log("end!!!!!!!!!!");
 			x = (-this.width()) * 32 + size_w;
-			character.screen_x = size_w - (this.width() * 32 - cx);
+			character.screen_x = size_w - (this.width() * 32 - cx) - x;
 		} else {
 			x = -cx + size_w / 2;
-			character.screen_x = size_w / 2;
+			character.screen_x = size_w / 2 - x;
 		}
 		character.screen_y = cy;
 		y = 0;
