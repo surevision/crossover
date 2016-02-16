@@ -7,6 +7,7 @@
 		"src/res.js",
 
 		"src/commons/Const.js",
+		"src/commons/EventManager.js",
 		"src/commons/Input.js",
 		"src/commons/inputs/KeyBoardInput.js",
 
@@ -28,6 +29,8 @@
 		"src/scenes/SceneBase.js",
 		"src/scenes/SceneTitle.js",
 		"src/scenes/SceneMap.js",
+
+		"src/ui/UIBase.js",
 
 
 		"src/main.js"
