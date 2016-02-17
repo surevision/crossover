@@ -115,8 +115,9 @@ var UIRichText = UIBase.extend({
 		this.ignoreAnchorPointForPosition(false);
 		this.setAnchorPoint(cc.p(0, 1));
 		this.setContentSize(this._width, this._height);
+		this.adjustContentsY();
 		//this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-		//this.setBackGroundColor(cc.color(0, 255, 0, 255));
+		//this.setBackGroundColor(cc.color(0, 255, 0, 100));
 		console.log(this._width, this._height);
 	},
 	/*
@@ -300,17 +301,17 @@ var UIRichText = UIBase.extend({
 		if ((!!name) && (!!action)) {
 			console.log("progress armature %s %s", name, action);
 			var armature = new ArmatureBase(name, this);
-			armature.setVisible(this._show_fast);
 			armature.play(action);
-			if (armature.getContentSize().width > this._width) {
-				armature:setScale(this._width / armature.getContentSize().width);
+			armature.armature.setVisible(this._show_fast);
+			if (armature.armature.getContentSize().width > this._width) {
+				armature.armature.setScale(this._width / armature.armature.getContentSize().width);
 			}
-			if (this._renderPos.x + armature.getContentSize().width > this._width) {
+			if (this._renderPos.x + armature.armature.getContentSize().width > this._width) {
 				this.nextLine();
 			}
-			this.setElemPosition(armature, this._renderPos.x, this._renderPos.y);
-			this._renderPos.x += armature.getContentSize().width;
-			this._renderPos.maxHeight = (this._renderPos.maxHeight > armature.getContentSize().height) ? this._renderPos.maxHeight : armature.getContentSize().height
+			this.setElemPosition(armature.armature, this._renderPos.x, this._renderPos.y);
+			this._renderPos.x += armature.armature.getContentSize().width;
+			this._renderPos.maxHeight = (this._renderPos.maxHeight > armature.armature.getContentSize().height) ? this._renderPos.maxHeight : armature.armature.getContentSize().height
 
 			this._armatures.push(armature);
 			this._contents.push(armature);
@@ -330,13 +331,13 @@ var UIRichText = UIBase.extend({
 		elem.ignoreAnchorPointForPosition(false);
 		elem.setAnchorPoint(cc.p(0,0));
 		elem.setVisible(true);
-		if (!!_x) {
+		if (_x != null) {
 			var x = _x + elem.getContentSize().width * elem.getAnchorPoint().x;
 			elem.setPositionX(x);
 		}
-		if (!!_y) {
+		if (_y != null) {
 			var y = _y + elem.getContentSize().height * elem.getAnchorPoint().y;
-			elem.setPositionY(y);
+			elem.setPositionY(- y);
 		}
 	},
 	/*
@@ -353,12 +354,26 @@ var UIRichText = UIBase.extend({
 		this._currentLine = [];
 	},
 
+	adjustContentsY : function () {
+		for (var i = 0; i < this._contents.length; i += 1) {
+			var elem = this._contents[i];
+			if (elem instanceof ArmatureBase) {
+				elem = elem.armature;
+			}
+			elem.setPositionY(elem.getPositionY() + this._height + this._lineHeight);
+		}
+	},
+
 	update : function(dt) {
 		this._updateDt += dt;
 		if (this._updateDt > this.WAIT_FOR_MESSAGE) {
 			this._updateDt = 0;
 			if (this._showSeq < this._contents.length) {
-				this._contents[this._showSeq].setVisible(true);
+				if (this._contents[this._showSeq] instanceof ArmatureBase) {
+					this._contents[this._showSeq].armature.setVisible(true);
+				} else {
+					this._contents[this._showSeq].setVisible(true);
+				}
 				this._showSeq += 1;
 			}
 		}

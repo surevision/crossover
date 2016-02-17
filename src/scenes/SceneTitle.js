@@ -27,10 +27,10 @@ var SceneTitle = SceneBase.extend({
 
 		testLayer.addChild(testLabel);
 
-		var richLabel = new UIRichText(size.width, true);
+		var richLabel = new UIRichText(200, true);
 		richLabel.setString("测试 $S<48>← ←$C<2>！$S<24>$C<3>面码$C<0>！$I<res/armatures/TuanZi/TuanZi0.png>$A<TuanZi,idle>");
 		this.addChild(richLabel, 2);
-		richLabel.setPosition(10, size.height / 2);
+		richLabel.setPosition(10, size.height);
 		//SceneManager.call(new SceneMap());
 	}
 });
