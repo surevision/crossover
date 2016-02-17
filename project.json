@@ -31,6 +31,7 @@
 		"src/scenes/SceneMap.js",
 
 		"src/ui/UIBase.js",
+		"src/ui/UIRichText.js",
 
 
 		"src/main.js"

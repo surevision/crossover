@@ -10,9 +10,9 @@ var ArmatureBase = cc.Class.extend({
 
 		// debug
 		this._debug = false;
-        this.drawNode = new cc.DrawNode();
-        this.drawNode.setDrawColor(cc.color(100,100,100,255));
-        this.armature.getParent().addChild(this.drawNode);
+		this.drawNode = new cc.DrawNode();
+		this.drawNode.setDrawColor(cc.color(100,100,100,255));
+		this.armature.getParent().addChild(this.drawNode);
 	},
 	update : function() {
 
@@ -33,6 +33,12 @@ var ArmatureBase = cc.Class.extend({
 		this.armature.getAnimation().play(movement);
 	},
 
+	// super
+
+	removeFromParent : function() {
+		this.dispose();
+	},
+	
 	//debug
 	debug : function(_debug) {
 		this._debug = _debug;
