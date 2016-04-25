@@ -6,12 +6,21 @@
     <script type="text/javascript" src="cocos2d-js-v3.7.js" charset="utf-8"></script>
     <script type="text/javascript" src="src/main.js" charset="utf-8"></script>
 </head>
-<body>   
-    <canvas id="gameCanvas" width="800" height="450"></canvas>
+<body style="margin:0px auto;width:100%;height:100%;">
+    <canvas id="gameCanvas"></canvas>
     <script type="text/javascript">
           window.onload = function(){
             game.run();
+            resize();
           };
+          function resize() {
+              var center = document.getElementById("gameCanvas");
+              center.style.height = (document.documentElement.clientHeight) + "px";
+              center.style.width = (document.documentElement.clientWidth) + "px";
+              center.height = document.documentElement.clientHeight;
+              center.width = document.documentElement.clientWidth;
+          }
+          window.onresize = resize;
     </script>
 </body>
 </html>

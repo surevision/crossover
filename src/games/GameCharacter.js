@@ -82,6 +82,8 @@ var GameCharacter = cc.Class.extend({
 		}
 		// 检查落地、撞墙等状态
 		this.checkState();
+		// 检查事件碰撞
+		this.checkEvent();
 		// 调整设置屏幕位置
 		this.adjustPos();
 	},
@@ -153,6 +155,22 @@ var GameCharacter = cc.Class.extend({
 					}
 				}
 				console.log("idle _x, _y, real_x, speed_x %d", _x, _y, this.real_x, this.speed_x);
+			}
+		}
+	},
+	checkEvent : function() {
+		for (var i = 0; i < SceneManager.runningScene.map.events.length; i += 1) {
+			var e = SceneManager.runningScene.map.events[i];
+			var x = parseInt(e.x) / Map.TILE_WIDTH;
+			var y = parseInt(e.y) / Map.TILE_HEIGHT;
+			var w = parseInt(e.width);
+			var h = parseInt(e.height);
+			// console.log(e.name, e.x, e.y, x, y, this.x, this.y);
+			if (x == this.x && y == this.y) {
+				// console.log(e);
+				if (e[eEvent.toEval]) {
+					eval(e[eEvent.toEval]);
+				}
 			}
 		}
 	},

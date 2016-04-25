@@ -23,6 +23,12 @@ var eMap = {
 	}
 };
 
+// 事件层指令
+var eEvent = {
+	toEval : "toEval",
+	commands : "commands"
+}
+
 // 角色默认层级
 var DEFAULT_CHARACTER_LAYER = 1;
 

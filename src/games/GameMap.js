@@ -72,6 +72,16 @@ var GameMap = cc.Class.extend({
 				}
 			}
 		}
+		// 检测事件
+		for (var i = 0; i < this.events.length; i += 1) {
+			var e = SceneManager.runningScene.map.events[i];
+			var _x = parseInt(e.x) / Map.TILE_WIDTH;
+			var _y = this.height() - (parseInt(e.y) / Map.TILE_HEIGHT);
+			if (x == _x && y == _y - 1 && 
+					e[Map.TILE_PROP_OBSTACLE] == eMap.Obstacle.unpassable) {
+				return false;
+			}
+		}
 		return true;
 	},
 	// 居中显示玩家角色
@@ -88,7 +98,7 @@ var GameMap = cc.Class.extend({
 			x = 0;
 			character.screen_x = cx;
 		} else if (cx > this.width() * 32 - size_w / 2) {
-			console.log("end!!!!!!!!!!");
+			//console.log("end!!!!!!!!!!");
 			x = (-this.width()) * 32 + size_w;
 			character.screen_x = size_w - (this.width() * 32 - cx) - x;
 		} else {
