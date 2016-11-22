@@ -74,7 +74,7 @@ var GameCharacter = cc.Class.extend({
 			var checkLY = parseInt(this.last_real_y / 32);
 			var checkY = parseInt(this.real_y / 32);
 
-			console.log("last_y, real_y , diff , cly, cy: %d, %d, %d", this.last_real_y, this.real_y, this.last_real_y - this.real_y, checkLY, checkY);
+			//console.log("last_y, real_y , diff , cly, cy: %d, %d, %d", this.last_real_y, this.real_y, this.last_real_y - this.real_y, checkLY, checkY);
 		}
 		if (this.isInState(CharacterState.MOVE)) {
 			// 设置位置
@@ -84,6 +84,8 @@ var GameCharacter = cc.Class.extend({
 		this.checkState();
 		// 检查事件碰撞
 		this.checkEvent();
+		// 45°斜坡
+		this.adjustSlope();
 		// 调整设置屏幕位置
 		this.adjustPos();
 	},
@@ -98,12 +100,18 @@ var GameCharacter = cc.Class.extend({
 			var _y = SceneManager.runningScene.map.height() - checkY;
 			// 只需判定向下运动时的隧穿。
 			if (checkLY - checkY < 1) {
-				if (this.speed_y < 0 && (!SceneManager.runningScene.map.isPassable(_x, _y))) {
+				if (this.speed_y < 0 && 
+					((!SceneManager.runningScene.map.isPassable(_x, _y)) || 
+						SceneManager.runningScene.map.isSlope(_x, _y))) {
+					// 是障碍或斜坡
 					if (this.real_y > checkY * 32 - this.render_height && 
 							this.real_y < checkY * 32 + this.render_height) {
 						this.fall();
 						checkY = parseInt(this.real_y / 32);
 						this.real_y = checkY * 32;
+						if (SceneManager.runningScene.map.isSlope(_x, _y)) {
+							this.real_y -= 32;
+						}
 						console.log("落地: checkY %d, _y %d", checkY, _y);
 					}
 				}
@@ -115,11 +123,17 @@ var GameCharacter = cc.Class.extend({
 					checkY = checkY + 1;
 					_y = SceneManager.runningScene.map.height() - checkY;
 					console.log("隧穿递推 _y: %d", _y);
-					if (this.speed_y < 0 && (!SceneManager.runningScene.map.isPassable(_x, _y))) {
+					if (this.speed_y < 0 && 
+						((!SceneManager.runningScene.map.isPassable(_x, _y)) || 
+							SceneManager.runningScene.map.isSlope(_x, _y))) {
+						// 是障碍或斜坡
 						if (this.real_y > checkY * 32 - this.render_height && 
 								this.real_y < checkY * 32 + this.render_height) {
 							this.fall();
 							this.real_y = checkY * 32;
+							if (SceneManager.runningScene.map.isSlope(_x, _y)) {
+								this.real_y -= 32;
+							}
 							console.log("落地隧穿: checkY %d, _y %d", checkY, _y);
 							break;
 						}
@@ -133,6 +147,10 @@ var GameCharacter = cc.Class.extend({
 			var _y = SceneManager.runningScene.map.height() - checkY;
 			if (SceneManager.runningScene.map.isPassable(_x, _y)) {
 				this.jump(true);
+			}
+			if (this.adjustSlope() > 20.0) {
+				this.real_y += 32.0;
+				this.y += 1;
 			}
 		}
 		if (this.isInState(CharacterState.MOVE)) {
@@ -176,14 +194,20 @@ var GameCharacter = cc.Class.extend({
 	},
 	adjustPos : function() {
 		this.x = parseInt(this.real_x / 32);
-		this.y = parseInt(this.real_y / 32);
+		this.y = parseInt((this.real_y) / 32);
+		// console.log(this.adjustSlope(), this.adjustSlope() > 16.0);
 		// todo:暂时相同
 		// this.screen_x = this.real_x;
 		// this.screen_y = this.real_y;
-	
+		
+		console.log("this.adjustSlope() %d", this.adjustSlope());
 		if (this.y <= 0) {
 			// gameover
 			SceneManager.call(new SceneTitle());
 		}
+	},
+	adjustSlope : function() {
+		var slopeY =  SceneManager.runningScene.map.slopeY(this.real_x, this.real_y);
+		return slopeY;
 	}
 });

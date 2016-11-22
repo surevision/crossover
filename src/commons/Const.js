@@ -11,7 +11,8 @@ var Map = {
 	LAYER_NAME_3 : "layer3",		// 图层名 层3
 	LAYER_NAME_4 : "layer4",		// 图层名 层4 特殊
 
-	TILE_PROP_OBSTACLE : "obstacle"	// 图块属性 是否为障碍物
+	TILE_PROP_OBSTACLE : "obstacle",	// 图块属性 是否为障碍物
+	TILE_PROP_SLOPE : "slope"		// 图块属性 是否为斜坡
 
 };
 
@@ -20,6 +21,10 @@ var eMap = {
 	// 障碍物
 	Obstacle : {
 		unpassable : "1"	// 是不可通行的障碍物
+	},
+	Slope : {
+		SmallLeft : "1",	// 左边的低斜坡
+		SmallRight : "2"	// 右边低的斜坡
 	}
 };
 

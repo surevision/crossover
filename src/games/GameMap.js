@@ -84,6 +84,27 @@ var GameMap = cc.Class.extend({
 		}
 		return true;
 	},
+	// 是否为斜坡
+	isSlope : function(x, y) {
+		if ((x < 0) || (x >= this.width()) || (y < 0) || (y >= this.height())) {
+			return false;
+		}
+		for (var i = 0; i < 3; i += 1) {
+			var layer = this.tileMapLayers[i];
+			var gid = layer.getTileGIDAt(cc.p(x, y));
+			if (gid != 0) {
+				//console.log("passage checking gid %d", gid);
+				var prop = this.tmx.getPropertiesForGID(gid);
+				if (prop && prop[Map.TILE_PROP_SLOPE] == eMap.Slope.SmallLeft) {
+					return true;
+				}
+				if (prop && prop[Map.TILE_PROP_SLOPE] == eMap.Slope.SmallRight) {
+					return true;
+				}
+			}
+		}
+		return false;
+	},
 	// 居中显示玩家角色
 	centerPlayer : function() {
 		var character = SceneManager.runningScene.player;
@@ -105,8 +126,30 @@ var GameMap = cc.Class.extend({
 			x = -cx + size_w / 2;
 			character.screen_x = size_w / 2 - x;
 		}
-		character.screen_y = cy;
+		character.screen_y = cy + character.adjustSlope();
 		y = 0;
 		this.tmx.setPosition(x, y);
+	},
+	// 取得斜坡y偏移
+	slopeY : function(x, y) {
+		for (var i = 0; i < this.tileMapLayers.length; i += 1) {
+			var layer = this.tileMapLayers[i];
+			var _x = parseInt(x / 32);
+			var _y = parseInt(y / 32);
+			var gid = layer.getTileGIDAt(cc.p(_x, this.height() - _y - 1));
+			if (gid != 0) {
+				var prop = this.tmx.getPropertiesForGID(gid);
+				//console.log(gid);
+				//console.log(prop);
+				if (prop && prop[Map.TILE_PROP_SLOPE] == eMap.Slope.SmallLeft) {
+					var offsetX = x - _x * 32;
+					return offsetX;// * 0.707;
+				} else if (prop && prop[Map.TILE_PROP_SLOPE] == eMap.Slope.SmallRight) {
+					var offsetX = x - _x * 32
+					return 32.0 - offsetX;// * 0.707;
+				}
+			}
+		}
+		return 0;
 	}
 });
