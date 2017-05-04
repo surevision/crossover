@@ -126,7 +126,7 @@ var GameMap = cc.Class.extend({
 			x = -cx + size_w / 2;
 			character.screen_x = size_w / 2 - x;
 		}
-		character.screen_y = cy + character.adjustSlope();
+		character.screen_y = this.tmx.getContentSize().height - cy;
 		y = 0;
 		this.tmx.setPosition(x, y);
 	},
@@ -136,7 +136,7 @@ var GameMap = cc.Class.extend({
 			var layer = this.tileMapLayers[i];
 			var _x = parseInt(x / 32);
 			var _y = parseInt(y / 32);
-			var gid = layer.getTileGIDAt(cc.p(_x, this.height() - _y - 1));
+			var gid = layer.getTileGIDAt(cc.p(_x, _y));
 			if (gid != 0) {
 				var prop = this.tmx.getPropertiesForGID(gid);
 				//console.log(gid);

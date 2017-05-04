@@ -7,7 +7,11 @@ var ArmatureCharacter = ArmatureBase.extend({
 		// this.debug(true);
 	},
 	init : function(tmxMap) {
-		this.armature.setPosition(this.character.screen_x, this.character.screen_y);
+		this.tmxMap = tmxMap;
+		this.armature.setPosition(
+			this.character.screen_x, 
+			this.character.screen_y
+		);
 		tmxMap.reorderChild(this.armature, DEFAULT_CHARACTER_LAYER);
 		this.checkState();
 	},
@@ -17,7 +21,10 @@ var ArmatureCharacter = ArmatureBase.extend({
 		this.character.render_height = this.armature.getBoundingBox().height
 		this.character.update();
 		this.checkState();
-		this.armature.setPosition(this.character.screen_x, this.character.screen_y);
+		this.armature.setPosition(
+			this.character.screen_x, 
+			this.character.screen_y
+		);
 		this.armature.setScaleX(this.character.dir ? -1 : 1);
 	},
 	// 检查动作状态，播放响应动作

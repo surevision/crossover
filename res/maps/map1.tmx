@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="15" tilewidth="32" tileheight="32" nextobjectid="9">
- <tileset firstgid="1" name="tileA" tilewidth="32" tileheight="32" tilecount="4096">
+<map version="1.0" orientation="orthogonal" width="100" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileA" tilewidth="32" tileheight="32">
   <image source="kenney_16x16.png" width="2048" height="2048"/>
   <tile id="2472">
    <properties>
@@ -28,14 +28,19 @@
    </properties>
   </tile>
  </tileset>
+ <layer name="bg" width="100" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6Hz77JOJmJfSFg1VVVVVVX19QB0USao
+  </data>
+ </layer>
  <layer name="layer1" width="100" height="15">
   <data encoding="base64" compression="zlib">
-   eJztlEEKgCAQRWfRRphF5zQvVp3MRXeoTShpkDiTCv/B28nw9atEAAAAAABt8IboMK1TpFgmWi4d181ZTSooZ+dgT8S9OqFuJe6Jj3JpvK+Ng3/w9Tyeb02qk97R7MNm/jApb0rX56idobXHUbKgj76yoI/3LPMEIYRjeAK0o894
+   eJztlE0KgCAYREdoI7jonObFqpO56A61CSUNEn9SmAdvJx+jowKAECCEEEIIaY6VwCH/ThGiFbBcGpU3Z5WhJJ1dOXvC79UU6rbEPbFerhrva1POFnw9j+dbK9VJ79TsQ0f+sFLepK6PkTuj1h5HycI++srCPt6zzBOllI7hCeN6z3o=
   </data>
  </layer>
  <layer name="layer2" width="100" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt1NEKQDAUBuAjXFiRZ8KlebF5OI+EMtYozMaW/6u/NDltnWNEAAAAAN8QjKhgX+9ir8qI6ilN9qzOfD6uxMezgjm1v52l3tr4J8QLMze4KbtK0u2ZG57BVk9CUEZu6rbaHSZ7oa8dRaW/U+dSzmu+5KjW2Rzrd+3dGle+txnTvfQ/mmlfDDHiUwAAQjEC7qd0eg==
+   eJzt1O0KQDAUBuAj/KDINeGnubFp1+aSUL6aCbMxeZ96S8ppp3OMCAAAAOAdPCZK47dPsZVHREWfMrpXZ+iPreJir6BvPd/a0GxN/BP8gZ1r7ZSdBeHyzDR6EAZn8gWZZ6duJd1h0yzkd6rIxM5eTvuajFHVOtpj+a69WuPM9yaje5bmRzvtitZHXAoAwFd0a3V0/A==
   </data>
  </layer>
  <layer name="layer3" width="100" height="15">
@@ -43,21 +48,21 @@
    eJzt07EJACAMBMDg/hPosm4gpggiuau/eEI+AgCAzuZ43QDuraJ/ze7glP95U1X3BQDoYgMhfQOr
   </data>
  </layer>
- <objectgroup name="events">
-  <object id="1" name="gate" x="2720" y="256" width="32" height="32">
+ <objectgroup name="events" width="0" height="0">
+  <object name="gate" x="2720" y="256" width="32" height="32">
    <properties>
     <property name="toEval" value="this.real_x = 0;"/>
    </properties>
   </object>
-  <object id="2" name="e1" x="0" y="0" width="32" height="32"/>
-  <object id="3" name="e2" x="64" y="0" width="32" height="32"/>
-  <object id="4" name="te1" x="128" y="0" width="32" height="32"/>
-  <object id="5" name="1" x="96" y="256" width="32" height="32">
+  <object name="e1" x="0" y="0" width="32" height="32"/>
+  <object name="e2" x="64" y="0" width="32" height="32"/>
+  <object name="te1" x="128" y="0" width="32" height="32"/>
+  <object name="1" x="96" y="256" width="32" height="32">
    <properties>
     <property name="obstacle" value="1"/>
    </properties>
   </object>
-  <object id="7" name="2" x="160" y="288" width="32" height="32">
+  <object name="2" x="160" y="288" width="32" height="32">
    <properties>
     <property name="toEval" value="console.log(&quot;eval!&quot;);"/>
    </properties>

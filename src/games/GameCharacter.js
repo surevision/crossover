@@ -48,6 +48,10 @@ var GameCharacter = cc.Class.extend({
 	update : function() {
 		this.stateMachineX.update();
 		this.stateMachineY.update();
+		if (this.isInState(CharacterState.MOVE)) {
+			// 设置位置
+			this.real_x += this.speed_x * (this.dir ? 1 : -1);
+		}
 		switch (Input.dir2()) {
 			case 4 :
 				console.log("LEFT");
@@ -66,115 +70,70 @@ var GameCharacter = cc.Class.extend({
 		}
 		// 检查落地、撞墙等状态
 		this.checkState();
+		this.last_real_y = this.real_y; // 暂时只需要记录y
 		if (this.isInState(CharacterState.JUMP)) {
 			// 隧穿记录
-			this.last_real_y = this.real_y; // 暂时只需要记录y
 			// 设置位置
-			this.real_y += this.speed_y;
-			var checkLY = parseInt(this.last_real_y / 32);
-			var checkY = parseInt(this.real_y / 32);
-
-			//console.log("last_y, real_y , diff , cly, cy: %d, %d, %d", this.last_real_y, this.real_y, this.last_real_y - this.real_y, checkLY, checkY);
-		}
-		if (this.isInState(CharacterState.MOVE)) {
-			// 设置位置
-			this.real_x += this.speed_x * (this.dir ? 1 : -1);
+			this.real_y -= this.speed_y;
 		}
 		// 检查落地、撞墙等状态
 		this.checkState();
 		// 检查事件碰撞
 		this.checkEvent();
-		// 45°斜坡
-		this.adjustSlope();
 		// 调整设置屏幕位置
 		this.adjustPos();
 	},
 	checkState : function() {
 		// 落地-掉落-待机		
+		var map = SceneManager.runningScene.map;
 		var checkX = parseInt(this.real_x / 32);
-		var checkY = parseInt(this.real_y / 32);
-		var checkLY = parseInt(this.last_real_y / 32);
+		var checkY = parseInt(this.real_y / 32) - 1;
+		var checkLY = parseInt(this.last_real_y / 32) - 1;
+		cc.log("%d %d %d", checkX, checkY, checkLY);
+		var dirX = parseInt((this.real_x + (this.dir ? 1 : -1) * 32) / 32);
+		if (!map.isPassable(dirX, checkY)) {
+			this.idle();
+		}
 		if (this.isInState(CharacterState.JUMP)) {
-			// 落地
-			var _x = checkX;
-			var _y = SceneManager.runningScene.map.height() - checkY;
-			// 只需判定向下运动时的隧穿。
-			if (checkLY - checkY < 1) {
-				if (this.speed_y < 0 && 
-					((!SceneManager.runningScene.map.isPassable(_x, _y)) || 
-						SceneManager.runningScene.map.isSlope(_x, _y))) {
-					// 是障碍或斜坡
-					if (this.real_y > checkY * 32 - this.render_height && 
-							this.real_y < checkY * 32 + this.render_height) {
-						this.fall();
-						checkY = parseInt(this.real_y / 32);
-						this.real_y = checkY * 32;
-						if (SceneManager.runningScene.map.isSlope(_x, _y)) {
-							this.real_y -= 32;
-						}
-						console.log("落地: checkY %d, _y %d", checkY, _y);
-					}
+			if (this.speed_y < 0) {
+				// 向下掉落
+				var downY = (checkY + 1) * 32; // 平地高度
+				// 当前方块是斜坡
+				if (map.isSlope(checkX, checkY)) {
+					downY += map.slopeY(this.real_x, checkY * 32);
 				}
-			} else {
-				console.log("隧穿！");
-				// 两次运动超过1格，逐格检测
-				var cnt = checkLY - checkY;
-				for (var i = 0; i < cnt; i += 1) {
-					checkY = checkY + 1;
-					_y = SceneManager.runningScene.map.height() - checkY;
-					console.log("隧穿递推 _y: %d", _y);
-					if (this.speed_y < 0 && 
-						((!SceneManager.runningScene.map.isPassable(_x, _y)) || 
-							SceneManager.runningScene.map.isSlope(_x, _y))) {
-						// 是障碍或斜坡
-						if (this.real_y > checkY * 32 - this.render_height && 
-								this.real_y < checkY * 32 + this.render_height) {
-							this.fall();
-							this.real_y = checkY * 32;
-							if (SceneManager.runningScene.map.isSlope(_x, _y)) {
-								this.real_y -= 32;
-							}
-							console.log("落地隧穿: checkY %d, _y %d", checkY, _y);
-							break;
-						}
-					}
+				// 下方方块是斜坡
+				if (map.isSlope(checkX, checkY + 1)) {
+					downY += map.slopeY(this.real_x, (checkY + 1) * 32);
+				}
+				if (this.real_y > downY && !map.isPassable(checkX, checkY + 1)) {
+					this.fall();
+					this.real_y = downY;
 				}
 			}
-		}
-		if (this.speed_y == 0) {
-			// 掉落(初速为0自由落体)
-			var _x = this.x;
-			var _y = SceneManager.runningScene.map.height() - checkY;
-			if (SceneManager.runningScene.map.isPassable(_x, _y)) {
+		} else {
+			// 移动中
+			if (map.isPassable(checkX, checkY + 1) && !map.isSlope(checkX, checkY + 1)) {
+				// 脚下是空地
+				cc.log("脚下是空地", checkX, checkY + 1);
 				this.jump(true);
+				// return;
 			}
-			if (this.adjustSlope() > 20.0) {
-				this.real_y += 32.0;
-				this.y += 1;
+			var downY = (checkY + 1) * 32; // 平地高度
+			if (map.isSlope(checkX, checkY)) {
+				// 当前方块是斜坡（在斜坡上行走）
+				downY -= map.slopeY(this.real_x, checkY * 32);
+				this.real_y = downY;
+			} else if (map.isSlope(checkX, checkY + 1)) {
+				// 脚下方块是斜坡（掉落到斜坡上）
+				downY += 32 - map.slopeY(this.real_x, (checkY + 1) * 32);
+				this.real_y = downY;
 			}
-		}
-		if (this.isInState(CharacterState.MOVE)) {
-			// 撞墙
-			var _x = this.x + 1 * (this.dir ? 1 : -1);
-			var _y = SceneManager.runningScene.map.height() - checkY - 1;
-			if (_x >= SceneManager.runningScene.map.width() || 
-				_x < 0 ||
-				!SceneManager.runningScene.map.isPassable(_x, _y)) {
-				if (this.dir) {
-					// 向右					
-					if (this.real_x >= _x * 32 - this.render_width / 2) {
-						console.log("撞墙右 %d %d", _x, _y);
-						this.idle();
-					}
-				} else {
-					if (this.real_x <= (_x + 1) * 32 + this.render_width / 2) {
-						console.log("撞墙左 %d %d", _x, _y);
-						this.idle();
-					}
-				}
-				console.log("idle _x, _y, real_x, speed_x %d", _x, _y, this.real_x, this.speed_x);
+			if (!map.isPassable(checkX, checkY + 1)) {
+				this.fall();
 			}
 		}
+
 	},
 	checkEvent : function() {
 		for (var i = 0; i < SceneManager.runningScene.map.events.length; i += 1) {
@@ -195,15 +154,12 @@ var GameCharacter = cc.Class.extend({
 	adjustPos : function() {
 		this.x = parseInt(this.real_x / 32);
 		this.y = parseInt((this.real_y) / 32);
-		// console.log(this.adjustSlope(), this.adjustSlope() > 16.0);
-		// todo:暂时相同
-		// this.screen_x = this.real_x;
-		// this.screen_y = this.real_y;
-		
-		console.log("this.adjustSlope() %d", this.adjustSlope());
+		if (SceneManager.runningScene.map.isSlope(this.x, this.y)) {
+			this.y += 1;
+		}
 		if (this.y <= 0) {
 			// gameover
-			SceneManager.call(new SceneTitle());
+			// SceneManager.call(new SceneTitle());
 		}
 	},
 	adjustSlope : function() {

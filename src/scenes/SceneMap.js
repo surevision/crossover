@@ -14,7 +14,7 @@ var SceneMap = SceneBase.extend({
 
 		this.player = new GameCharacter("TuanZi");
 		var armature = new ArmatureCharacter(this.player, this.map.tmx);
-		armature.character.real_y = 10 * 32;
+		armature.character.real_y = 5 * 32;
 		this.armatures.push(armature);
 	},
 	updateLogic : function(dt) {
